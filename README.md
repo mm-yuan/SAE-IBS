@@ -7,5 +7,4 @@
 
 
 ## Citation
-\href{https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1}
-{https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1}
+[https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1](#real-cool-heading)
