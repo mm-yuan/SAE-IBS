@@ -6,13 +6,6 @@
 * Robust Projection of Target Data onto Reference Ancestry Space
 
 
-## Dependencies
-
-* requirements.txt
-
-
-## Run SAE-IBS model
-    main_SAEIBS.py
-
-
 ## Citation
+\href{https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1}
+{https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1}
