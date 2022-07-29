@@ -41,8 +41,8 @@ def load_data(dir, fname, scale_opt=None, data_type=None):
         else:
             geno = geno
     elif data_type =='vcf':
-        os.system("sed 's/^#CHROM/CHROM/' " + dir + " > " + dir + ".temp.reformat.vcf")
-        vcf = pd.read_csv(dir + ".temp.reformat.vcf", sep="\t", comment='#')
+        os.system("sed 's/^#CHROM/CHROM/' " + dir + fname + ".vcf" + " > " + dir + fname + ".temp.reformat.vcf")
+        vcf = pd.read_csv(dir + fname + ".temp.reformat.vcf", sep="\t", comment='#')
         vcf = vcf.iloc[:, vcf.columns.get_loc('FORMAT') + 1:] # 0/0 is REF/REF
         # NaN = 0 = ./.
         # AA = 3 = 0/0
