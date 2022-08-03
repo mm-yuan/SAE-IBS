@@ -10,7 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 import copy
 from tools import EarlyStopping
 import random
-import pandas
+import pandas as pd
 
 
 class MyDataset(Dataset):
