@@ -10,6 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 import copy
 from tools import EarlyStopping
 import random
+import pandas as pd
 
 
 class MyDataset(Dataset):
@@ -24,20 +25,48 @@ class MyDataset(Dataset):
         return len(self.dataset)
 
 
-def load_data(dir, fname, scale_opt=None):
-    hf = h5py.File(dir, 'r')
-    geno = np.transpose(np.array(hf[fname][:])).astype(np.float32)  # original coding NaN=0, aa=1, Aa=2, AA=3
-    if scale_opt == 'NaN_distinct':
-        geno = geno/3
-    elif scale_opt == 'NaN_random':
-        geno[geno == 0] = random.randint(1,3)
-        geno = geno/3
-    elif scale_opt == 'Normalize':
-        geno = (geno+1)/2  # original coding -1, 0, 1
-    elif scale_opt == 'Scale':
-        geno = (geno - 1) / 2  # original coding 1, 2, 3
-    else:
-        geno = geno
+def load_data(dir, fname, scale_opt=None, data_type=None):
+    if data_type =='mat':
+        hf = h5py.File(dir, 'r')
+        geno = np.transpose(np.array(hf[fname][:])).astype(np.float32)  # original coding NaN=0, aa=1, Aa=2, AA=3
+        if scale_opt == 'NaN_distinct':
+            geno = geno/3
+        elif scale_opt == 'NaN_random':
+            geno[geno == 0] = random.randint(1,3)
+            geno = geno/3
+        elif scale_opt == 'Normalize':
+            geno = (geno+1)/2  # original coding -1, 0, 1
+        elif scale_opt == 'Scale':
+            geno = (geno - 1) / 2  # original coding 1, 2, 3
+        else:
+            geno = geno
+    elif data_type =='vcf':
+        os.system("sed 's/^#CHROM/CHROM/' " + dir + fname + ".vcf" + " > " + dir + fname + ".temp.reformat.vcf")
+        vcf = pd.read_csv(dir + fname + ".temp.reformat.vcf", sep="\t", comment='#')
+        vcf = vcf.iloc[:, vcf.columns.get_loc('FORMAT') + 1:] # 0/0 is REF/REF
+        # NaN = 0 = ./.
+        # AA = 3 = 0/0
+        # Aa= 2 = 0/1 or 1/0
+        # aa = 1 = 1/1
+        vcf = vcf.replace(to_replace=["./.",".|.","./0",".|0","0/.","0|.","./1",".|1","1/.","1|.",
+                                    "0/0","0|0",
+                                    "0/1","0|1","1/0","1|0",
+                                    "1/1","1|1"], value=["0","0","0","0","0","0","0","0","0","0",
+                                                        "3","3",
+                                                        "2","2","2","2",
+                                                        "1","1"])
+        geno = np.transpose(np.array(vcf)).astype(np.float32)  # original coding NaN=0, aa=1, Aa=2, AA=3
+        if scale_opt == 'NaN_distinct':
+            geno = geno/3
+        elif scale_opt == 'NaN_random':
+            geno[geno == 0] = random.randint(1,3)
+            geno = geno/3
+        elif scale_opt == 'Normalize':
+            geno = (geno+1)/2  # original coding -1, 0, 1
+        elif scale_opt == 'Scale':
+            geno = (geno - 1) / 2  # original coding 1, 2, 3
+        else:
+            geno = geno
     return geno
 
 

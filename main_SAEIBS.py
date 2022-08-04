@@ -34,8 +34,8 @@ def main():
     save_args(args, args.out_dir)
 
     # Load data
-    geno_1kg = load_data(args.ref_data_dir, 'Genotypes_1kg', args.scale_opt)
-    geno_hdgp_sub = load_data(args.target_data_dir, 'Genotypes_hdgp', args.scale_opt)
+    geno_1kg = load_data(args.ref_data_dir, 'Genotypes_1kg', args.scale_opt, args.data_type)
+    geno_hdgp_sub = load_data(args.target_data_dir, 'Genotypes_hdgp', args.scale_opt, args.data_type)
     # load IBS
     ibs_1kg = load_ibs(args.ref_ibs_dir, 'IBS_1kg')
     ibs_hdgp_sub = load_ibs(args.target_ibs_dir, 'IBSconnect_hdgp')

@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument('--test', default=False, type=bool, help='test mode')
     parser.add_argument('--cuda', action='store_true', default=True and torch.cuda.is_available(),
                         help='enables CUDA training')
+    parser.add_argument('--data_type', default='mat', type=str, help='genetic data file format - mat or vcf')
 
     # data
     parser.add_argument('--ref_data_dir',
