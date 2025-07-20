@@ -5,6 +5,8 @@
 * Construction of Robust Ancestry Space in the Presence of Relatedness
 * Robust Projection of Target Data onto Reference Ancestry Space
 
+![Figure 1](https://github.com/user-attachments/assets/29b44441-bfe6-445a-bbc4-03577d89e151)
+
 
 ## Citation
 [Hybrid Autoencoder with Orthogonal Latent Space for Robust Population Structure Inference](https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1)
