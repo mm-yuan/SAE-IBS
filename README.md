@@ -9,4 +9,4 @@
 
 
 ## Citation
-[Hybrid Autoencoder with Orthogonal Latent Space for Robust Population Structure Inference](https://www.biorxiv.org/content/10.1101/2022.06.16.496401v1)
+[Hybrid Autoencoder with Orthogonal Latent Space for Robust Population Structure Inference](https://doi.org/10.1038/s41598-023-28759-x)
